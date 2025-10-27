@@ -1,0 +1,6 @@
+path: C:/Users/Betul/Desktop/Projects/Polyp/data/detection2/yolo_split2
+train: train/images
+val: val/images
+# test: test/images
+nc: 1
+names: [polyp]

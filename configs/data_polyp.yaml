@@ -1,0 +1,6 @@
+path: /content/drive/MyDrive/ErdosFall25/data/detection
+train: train/images
+val: valid/images
+nc: 1
+names:
+- polyp
