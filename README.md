@@ -23,9 +23,26 @@ This is a dataset consisting of 1000 images, annotated and verified by endoscopi
 
 - Endoscopists looking to improve accuracy, speed, and clinical workflow integration
 - Pathologists validating findings in imaging and support diagnoses
-- Hospital management looking to reduce procedure times, lower costs and improve patient outcomes while not interfering with accuracy.
-- Medtech developers providing commercialization and integration with existing endoscopy hardware and practices.
+- Hospital management looking to reduce procedure times, lower costs and improve patient outcomes while not interfering with accuracy
+- Medtech developers providing commercialization and integration with existing endoscopy hardware and practices
 
 ### Key Performance Indicators (KPI)
+- Intersection over Union (IoU) measuring how well predicted bounding box for polyp detection overlaps with ground truth box
+- Precision measuring proportion of true positives (predictions where IoU exceeds given threshold) among all predicted positives
+- Recall measuring proportion of true positives among all actual positives
+- Mean Average Precision (mAP) measuring mean of average precisions (area under precision-recall curve) across multiple IoU thresholds from 0.5 to 0.95 in increments of 0.05
 
 ### File Organization
+This repository is divided into six folders:
+
+#### Check-In
+
+#### architectures
+
+#### configs
+
+#### notebooks
+
+#### runs
+
+#### src
