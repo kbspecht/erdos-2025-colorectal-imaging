@@ -10,6 +10,15 @@ Our main objective is to build a deep-learning system that detects colorectal po
 
 ### Datasets
 
+PolypGen: https://www.synapse.org/Synapse:syn26376615/wiki/613312
+This is a polyp segmentation and detection generalization dataset composed of 8037 frames including both single and sequence frames. This dataset contains 3762 positive sample frames (frames containing annotated  polyps) and 4275 negative frames. These data are collected from six different hospitals.
+
+Real Colon: https://plus.figshare.com/articles/media/REAL-colon_dataset/22202866
+This is a dataset comprising 60 recordings of real-world colonoscopies which come from four different clinical studies with each study contributing 15 videos.
+
+Kvasir: https://datasets.simula.no/kvasir/
+This is a dataset consisting of 1000 images, annotated and verified by endoscopists, to be used for different tasks such as deep learning and transfer learning.
+
 ### Stakeholders
 
 ### Key Performance Indicators (KPI)
