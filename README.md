@@ -52,3 +52,7 @@ This folder contains the results of various runs of the models.
 
 #### src
 This folder contains various scripts for training and running the models.
+
+### Deployment
+We deployed our models to a web interface using Docker and Google Cloud Platform. The idea behind the interface is that doctors and medical staff can load patient results into the portal and perform real-time inference. The medical professionals can then provide feedback around correctness and observations. The feedback gets saved to a JSON file.
+The app can be found here: https://polyp-app-50611727111.europe-west1.run.app/
