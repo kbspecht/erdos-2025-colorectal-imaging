@@ -21,6 +21,11 @@ This is a dataset consisting of 1000 images, annotated and verified by endoscopi
 
 ### Stakeholders
 
+- Endoscopists looking to improve accuracy, speed, and clinical workflow integration
+- Pathologists validating findings in imaging and support diagnoses
+- Hospital management looking to reduce procedure times, lower costs and improve patient outcomes while not interfering with accuracy.
+- Medtech developers providing commercialization and integration with existing endoscopy hardware and practices.
+
 ### Key Performance Indicators (KPI)
 
 ### File Organization
