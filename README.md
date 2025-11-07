@@ -36,13 +36,19 @@ This is a dataset consisting of 1000 images, annotated and verified by endoscopi
 This repository is divided into six folders:
 
 #### Check-In
+This folder contains the check-in documents for the project.
 
 #### architectures
+This folder contains various architectures for deploying the models.
 
 #### configs
+This folder contains various configuration files for training and running the models.
 
 #### notebooks
+This folder contains various notebooks for training and running the models.
 
 #### runs
+This folder contains the results of various runs of the models.
 
 #### src
+This folder contains various scripts for training and running the models.
