@@ -13,7 +13,7 @@ Our main objective is to build a deep-learning system that detects colorectal po
 PolypGen: https://www.synapse.org/Synapse:syn26376615/wiki/613312 \
 This is a polyp segmentation and detection generalization dataset composed of 8037 frames including both single and sequence frames. This dataset contains 3762 positive sample frames (frames containing annotated  polyps) and 4275 negative frames. These data are collected from six different hospitals.
 
-Real Colon: https://plus.figshare.com/articles/media/REAL-colon_dataset/22202866 \
+REAL Colon: https://plus.figshare.com/articles/media/REAL-colon_dataset/22202866 \
 This is a dataset comprising 60 recordings of real-world colonoscopies which come from four different clinical studies with each study contributing 15 videos.
 
 Kvasir: https://datasets.simula.no/kvasir \
@@ -55,4 +55,5 @@ This folder contains various scripts for training and running the models.
 
 ### Deployment
 We deployed our models to a web interface using Docker and Google Cloud Platform. The idea behind the interface is that doctors and medical staff can load patient results into the portal and perform real-time inference. The medical professionals can then provide feedback around correctness and observations. The feedback gets saved to a JSON file.
+
 The app can be found here: https://polyp-app-50611727111.europe-west1.run.app/
