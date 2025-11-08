@@ -332,7 +332,7 @@ FEEDBACK_FILE = FEEDBACK_DIR / "feedback.jsonl"
 # Where model checkpoints live
 MODEL_DIRS: Dict[ModelKind, Path] = {
     "fasterrcnn": REPO_ROOT / "models" / "faster_rcnn",
-    "yolo": REPO_ROOT / "models",
+    "yolo": REPO_ROOT / "models" / "yolo",
 }
 
 # Built-in demo images to make the app usable out-of-the-box

@@ -15,10 +15,14 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# add in the what the app needs from architectures
+# add in the what the app needs from src
 COPY app.py ./
 COPY src ./src
-COPY runs ./runs
+COPY deploy ./deploy
+COPY models ./models
+COPY configs ./configs
+COPY feedback ./feedback
+COPY demo_images ./demo_images
 COPY feedback ./feedback
 
 # environments

@@ -92,7 +92,7 @@ def _load_yolo(ckpt_path: str | Path | None):
         )
 
     if ckpt_path is None:
-        ckpt_path = YOLO_DIR / "best.pt"
+        ckpt_path = YOLO_DIR / "yolo11s_best_det.pt"
 
     ckpt_path = Path(ckpt_path)
     # YOLO handles device internally; you can still force .to(DEVICE) if needed.
