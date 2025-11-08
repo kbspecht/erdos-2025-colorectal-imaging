@@ -1,6 +1,18 @@
 # This is for the scheduler
 import torch.optim as optim
 
+"""
+Learning rate scheduler builder for Faster R-CNN training.
+
+- Supports multiple scheduler types:
+    • "none"     → no scheduler (returns None)
+    • "step"     → StepLR with configurable step_size and gamma
+    • "cosine"   → CosineAnnealingLR with configurable T_max
+    • "plateau"  → ReduceLROnPlateau (for validation loss monitoring)
+- Returns the corresponding PyTorch scheduler object given an optimizer.
+- Raises ValueError if an unknown scheduler name is provided.
+"""
+
 
 def build_scheduler(
     name: str,
@@ -26,7 +38,7 @@ def build_scheduler(
     if name == "cosine":
         return optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=cosine_tmax)
 
-    if name == "pleateau":
+    if name == "plateau":
         return optim.lr_scheduler.ReduceLROnPlateau(
             optimizer,
             mode="min",

@@ -1,241 +1,3 @@
-# # #!/usr/bin/env python3
-# # import argparse
-# # from pathlib import Path
-
-# # import torch
-# # from PIL import Image, ImageDraw
-# # from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2
-# # from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
-# # from torchvision.transforms import functional as TF
-# # from tqdm import tqdm
-
-
-# # def build_model(num_classes=2, ckpt_path=None, device="cpu"):
-# #     m = fasterrcnn_resnet50_fpn_v2(weights=None)
-# #     in_feat = m.roi_heads.box_predictor.cls_score.in_features
-# #     m.roi_heads.box_predictor = FastRCNNPredictor(in_feat, num_classes)
-# #     if ckpt_path:
-# #         state = torch.load(str(ckpt_path), map_location=device)
-# #         m.load_state_dict(
-# #             state
-# #             if isinstance(state, dict) and "model" not in state
-# #             else state["model"]
-# #         )
-# #     m.to(device)
-# #     m.eval()
-# #     return m
-
-
-# # def load_images(images_dir):
-# #     exts = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff"}
-# #     return [p for p in Path(images_dir).iterdir() if p.suffix.lower() in exts]
-
-
-# # @torch.no_grad()
-# # def infer_one(model, img_path, device, thr=0.3):
-# #     img = Image.open(img_path).convert("RGB")
-# #     out = model([TF.to_tensor(img).to(device)])[0]
-# #     keep = out["scores"].cpu() >= thr
-# #     return (
-# #         img,
-# #         out["boxes"].cpu()[keep],
-# #         out["scores"].cpu()[keep],
-# #         out["labels"].cpu()[keep],
-# #     )
-
-
-# # def draw(img, boxes, scores, labels, names=None):
-# #     d = ImageDraw.Draw(img)
-# #     for b, s, l in zip(boxes, scores, labels):
-# #         x1, y1, x2, y2 = b.tolist()
-# #         d.rectangle([x1, y1, x2, y2], outline="red", width=3)
-# #         cls = str(int(l.item()))
-# #         if names and int(l.item()) < len(names):
-# #             cls = names[int(l.item())]
-# #         d.text((x1 + 2, y1 + 2), f"{cls} {float(s):.2f}", fill="red")
-# #     return img
-
-
-# # def parse_args():
-# #     p = argparse.ArgumentParser("Folder inference for Faster R-CNN")
-# #     p.add_argument("--ckpt", required=True)
-# #     p.add_argument("--images-dir", required=True)
-# #     p.add_argument("--out-dir", default="./vis_out")
-# #     p.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
-# #     p.add_argument("--score-thr", type=float, default=0.3)
-# #     p.add_argument("--vis", action="store_true")
-# #     p.add_argument("--side-by-side", action="store_true")
-# #     return p.parse_args()
-
-
-# # def side_by_side(a, b):
-# #     w1, h1 = a.size
-# #     w2, h2 = b.size
-# #     H = max(h1, h2)
-# #     out = Image.new("RGB", (w1 + w2, H), (0, 0, 0))
-# #     out.paste(a, (0, 0))
-# #     out.paste(b, (w1, 0))
-# #     return out
-
-
-# # def main():
-# #     a = parse_args()
-# #     device = torch.device(a.device)
-# #     model = build_model(num_classes=2, ckpt_path=a.ckpt, device=device))
-# #!/usr/bin/env python3
-# import argparse
-# from pathlib import Path
-
-# import torch
-# from PIL import Image, ImageDraw
-# from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2
-# from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
-# from torchvision.transforms import functional as TF
-# from tqdm import tqdm
-
-
-# def build_model(num_classes=2, ckpt_path=None, device="cpu"):
-#     m = fasterrcnn_resnet50_fpn_v2(weights=None)
-#     in_feat = m.roi_heads.box_predictor.cls_score.in_features
-#     m.roi_heads.box_predictor = FastRCNNPredictor(in_feat, num_classes)
-
-#     if ckpt_path:
-#         state = torch.load(str(ckpt_path), map_location=device)
-#         # handle both pure state_dict and {"model": state_dict}
-#         if isinstance(state, dict) and "model" in state:
-#             state = state["model"]
-#         m.load_state_dict(state)
-
-#     m.to(device)
-#     m.eval()
-#     return m
-
-
-# def load_images(images_dir):
-#     exts = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff"}
-#     images_dir = Path(images_dir)
-#     return sorted([p for p in images_dir.iterdir() if p.suffix.lower() in exts])
-
-
-# @torch.no_grad()
-# def infer_one(model, img_path, device, thr=0.3):
-#     img = Image.open(img_path).convert("RGB")
-#     out = model([TF.to_tensor(img).to(device)])[0]
-
-#     scores = out["scores"].cpu()
-#     keep = scores >= thr
-
-#     boxes = out["boxes"].cpu()[keep]
-#     scores = scores[keep]
-#     labels = out["labels"].cpu()[keep]
-
-#     return img, boxes, scores, labels
-
-
-# def draw(img, boxes, scores, labels, names=None):
-#     img = img.copy()
-#     d = ImageDraw.Draw(img)
-
-#     for b, s, l in zip(boxes, scores, labels):
-#         x1, y1, x2, y2 = b.tolist()
-#         d.rectangle([x1, y1, x2, y2], outline="red", width=3)
-
-#         cls = str(int(l.item()))
-#         if names and int(l.item()) in names:
-#             cls = names[int(l.item())]
-
-#         text = f"{cls} {float(s):.2f}"
-#         d.text((x1 + 2, y1 + 2), text, fill="red")
-
-#     return img
-
-
-# def side_by_side(a, b):
-#     w1, h1 = a.size
-#     w2, h2 = b.size
-#     H = max(h1, h2)
-#     out = Image.new("RGB", (w1 + w2, H), (0, 0, 0))
-#     out.paste(a, (0, 0))
-#     out.paste(b, (w1, 0))
-#     return out
-
-
-# def parse_args():
-#     p = argparse.ArgumentParser("Folder inference for Faster R-CNN")
-#     p.add_argument("--ckpt", required=True, help="Path to checkpoint .pth file")
-#     p.add_argument("--images-dir", required=True, help="Dir with input images")
-#     p.add_argument("--out-dir", default="./vis_out", help="Where to save outputs")
-#     p.add_argument(
-#         "--device",
-#         default="cuda" if torch.cuda.is_available() else "cpu",
-#         help="cpu or cuda",
-#     )
-#     p.add_argument("--score-thr", type=float, default=0.3)
-#     p.add_argument(
-#         "--side-by-side",
-#         action="store_true",
-#         help="Save original + prediction side by side",
-#     )
-#     p.add_argument(
-#         "--vis",
-#         action="store_true",
-#         help="(Optional) Also show images one by one (blocky in scripts)",
-#     )
-#     return p.parse_args()
-
-
-# def main():
-#     a = parse_args()
-#     device = torch.device(a.device)
-
-#     out_dir = Path(a.out_dir)
-#     out_dir.mkdir(parents=True, exist_ok=True)
-
-#     print(f"[info] device: {device}")
-#     print(f"[info] loading model from: {a.ckpt}")
-#     model = build_model(num_classes=2, ckpt_path=a.ckpt, device=device)
-
-#     imgs = load_images(a.images_dir)
-#     if not imgs:
-#         print(f"[warn] no images found in: {a.images_dir}")
-#         return
-
-#     print(f"[info] found {len(imgs)} images in {a.images_dir}")
-#     print(f"[info] saving visualizations to {out_dir}")
-
-#     # optional: label names if you want
-#     names = {1: "polyp"}
-
-#     for img_path in tqdm(imgs, desc="inference"):
-#         img, boxes, scores, labels = infer_one(model, img_path, device, thr=a.score_thr)
-
-#         if len(boxes) == 0:
-#             vis = img.copy()
-#         else:
-#             vis = draw(img, boxes, scores, labels, names=names)
-
-#         if a.side_by_side:
-#             vis = side_by_side(img, vis)
-
-#         out_path = out_dir / f"{img_path.stem}_pred.jpg"
-#         vis.save(out_path)
-
-#         if a.vis:
-#             vis.show()
-
-#     print(f"[done] saved {len(imgs)} images to {out_dir}")
-
-
-import os
-
-# if __name__ == "__main__":
-#     main()
-import sys
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
-
-#!/usr/bin/env python3
-##!/usr/bin/env python3
 import argparse
 import json
 import os
@@ -246,6 +8,23 @@ import torch
 from PIL import Image, ImageDraw, ImageFont
 from torchvision.ops import nms
 from torchvision.transforms import functional as TF
+
+"""
+Run Faster R-CNN inference on a folder of images and visualize GT vs predictions.
+
+- Parses CLI args for model checkpoint, images directory, output directory,
+  optional COCO-style JSON (for ground-truth boxes), thresholds, and device.
+- Loads a Faster R-CNN model from weights and runs inference on each image.
+- Optionally looks up COCO ground-truth boxes and overlays them in green.
+- Applies score filtering and NMS, then overlays predicted boxes in red
+  with confidence scores.
+- Saves side-by-side visualizations (original | GT+predictions) to the
+  specified output directory.
+"""
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+
 
 # --- make src/ the package root so "faster_rcnn" is importable ---
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))

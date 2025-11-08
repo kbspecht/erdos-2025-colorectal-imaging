@@ -1,4 +1,23 @@
-#!/usr/bin/env python3
+import argparse
+import json
+from pathlib import Path
+
+from PIL import Image
+
+"""
+Portable YOLO → COCO conversion script for polyp (or single-class) datasets.
+
+- Supports two common directory layouts:
+    A) images/train,val + labels/train,val
+    B) train/images,labels + val/images,labels
+- Detects layout automatically for each dataset root.
+- Converts YOLO label files (normalized cx,cy,w,h or pixel x1,y1,x2,y2)
+  into COCO-format annotations for train and val splits.
+- Merges multiple dataset roots into unified COCO train/val JSONs and
+  builds a roots_map.json that maps image filenames to absolute paths.
+- Writes train.json, val.json, and roots_map.json into an output artifacts directory.
+"""
+
 """
 prepare_data.py
 
@@ -31,11 +50,6 @@ Run:
         --class-name polyp
 """
 
-import argparse
-import json
-from pathlib import Path
-
-from PIL import Image
 
 IMG_EXTS = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff"}
 

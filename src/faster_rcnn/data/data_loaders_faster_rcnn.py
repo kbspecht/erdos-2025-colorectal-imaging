@@ -1,4 +1,14 @@
-# Augmentations
+"""
+Builds training and validation DataLoaders for Faster R-CNN.
+
+- Creates Albumentations-based augmentation pipelines for training and validation.
+- Loads COCO-style datasets via `CocoDetDataset`, resolving image paths using
+  `roots_map.json` and optional `images_root`.
+- Wraps datasets into PyTorch DataLoaders with proper batching, collation,
+  and worker configuration.
+- Returns `(train_loader, val_loader)` ready for model training and evaluation.
+"""
+
 from torch.utils.data import DataLoader
 
 from faster_rcnn.augmentations.presets_faster_rcnn import (

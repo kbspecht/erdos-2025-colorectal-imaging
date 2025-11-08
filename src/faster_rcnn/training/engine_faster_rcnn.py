@@ -4,6 +4,17 @@ from tqdm import tqdm
 
 from faster_rcnn.utils.utils_faster_rcnn import AverageMeter, ensure_dir
 
+"""
+Training utilities for Faster R-CNN.
+
+- `train_one_epoch`: runs one training epoch over a DataLoader using mixed
+  precision (autocast + GradScaler), tracking the average loss.
+- `validate_loss`: computes the average loss on a validation DataLoader by
+  running the model in train() mode under no_grad() to obtain loss dicts.
+- `save_checkpoint`: saves a checkpoint to disk (and, if `is_best`, also
+  writes best.pth in the same directory).
+"""
+
 
 def train_one_epoch(
     model, loader: DataLoader, optimizer, scaler, device, epoch, log_every=50
@@ -53,7 +64,5 @@ def save_checkpoint(
 ):
     ensure_dir(out_dir)
     torch.save(state, f"{out_dir}/{filename}")
-    if is_best:
-        torch.save(state, f"{out_dir}/best.pth")
     if is_best:
         torch.save(state, f"{out_dir}/best.pth")

@@ -4,6 +4,19 @@ from typing import Dict, List
 import torch
 import torch.optim as optim
 
+"""
+Optimizer builder for Faster R-CNN with flexible learning rate grouping.
+
+- `_split_param_groups`: builds parameter groups separating backbone, FPN,
+  and heads (RPN + ROI) for tiered or two-tier optimization. Includes only
+  trainable parameters (`requires_grad=True`).
+- `build_optimizer`: constructs and returns a configured optimizer
+  (SGD, Adam, or AdamW). Supports:
+      * uniform learning rate over all parameters, or
+      * differential learning rates for backbone vs heads (and optional FPN)
+        via `lr_backbone`, `lr_heads`, and `tiered=True`.
+"""
+
 
 def _split_param_groups(model, lr_backbone, lr_heads, weight_decay, tiered: bool):
     """

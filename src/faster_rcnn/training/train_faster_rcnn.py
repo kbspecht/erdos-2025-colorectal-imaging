@@ -1,11 +1,21 @@
-#!/usr/bin/env python3
 """
-Train Faster R-CNN (polyp detection) using artifacts/train.json, val.json, roots_map.json.
+Train Faster R-CNN for polyp detection using COCO-style artifacts.
+
+- Parses CLI / YAML-configured hyperparameters for data, model, optimizer,
+  schedulers, early stopping, and output paths.
+- Builds train/val DataLoaders from COCO-style JSONs (train.json, val.json,
+  roots_map.json) with configurable augmentation presets.
+- Constructs a Faster R-CNN model (optionally pretrained and partially
+  frozen), then attaches an optimizer (with optional tiered LRs) and a
+  learning-rate scheduler (step, cosine, or plateau).
+- Supports mixed-precision training (AMP), deterministic seeds, and resuming
+  from checkpoints (model, optimizer, scheduler, scaler, best_val).
+- Runs an epoch loop with train and validation loss, applies early stopping,
+  and saves rolling, per-epoch, and best checkpoints to out-dir.
 """
 
 import argparse
 import os
-from pathlib import Path
 
 import torch
 import yaml
@@ -16,9 +26,7 @@ from faster_rcnn.augmentations.presets_faster_rcnn import (
     build_val_augs,
 )
 from faster_rcnn.data.coco_detection_faster_rcnn import CocoDetDataset, collate_fn
-from faster_rcnn.data.coco_eval_faster_rcnn import coco_map
 from faster_rcnn.model_builder_faster_rcnn import build_model
-from faster_rcnn.models.faster_rcnn_model import build_fasterrcnn
 from faster_rcnn.training.engine_faster_rcnn import (
     save_checkpoint,
     train_one_epoch,

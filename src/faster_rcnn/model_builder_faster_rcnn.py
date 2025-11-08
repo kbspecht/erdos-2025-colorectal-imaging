@@ -2,6 +2,17 @@ import torch
 
 from faster_rcnn.models.faster_rcnn_model import build_fasterrcnn
 
+"""
+Wrapper for constructing a Faster R-CNN model with device handling.
+
+- Calls `build_fasterrcnn` with provided parameters (num_classes, pretrained,
+  freeze_backbone, and any extra kwargs).
+- Accepts a `device` argument, moves the model to that device, and returns
+  both `(model, device)` — a convenience for training and test scripts.
+- Keeps the interface consistent across modules that need a standardized
+  model-construction entry point.
+"""
+
 
 def build_model(
     num_classes: int = 2,

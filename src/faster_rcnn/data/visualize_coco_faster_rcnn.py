@@ -1,4 +1,16 @@
-#!/usr/bin/env python3
+"""
+Visualize Faster R-CNN predictions vs COCO ground truth.
+
+- Loads a Faster R-CNN (ResNet50-FPN v2) checkpoint and COCO-style val JSON.
+- Runs inference over validation images and draws:
+    - GT boxes in green
+    - Predicted boxes (above a score threshold) in red with confidence scores.
+- Saves visualizations to an output directory and/or displays them inline
+  (when running in a notebook with IPython.display available).
+- CLI arguments control checkpoint path, val JSON, score threshold, max images,
+  output directory, whether to save, and whether to show inline.
+"""
+
 import argparse
 from pathlib import Path
 

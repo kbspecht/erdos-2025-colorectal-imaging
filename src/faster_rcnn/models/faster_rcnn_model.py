@@ -4,6 +4,17 @@ import torch
 from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 
+"""
+Build and optionally partially-freeze a Faster R-CNN (ResNet50-FPN v2) model.
+
+- Optionally loads local backbone weights from a checkpoint file, stripping the
+  detection head so the model can be reconfigured for a new `num_classes`.
+- Otherwise falls back to torchvision's default pretrained weights (or none).
+- Replaces the ROI box predictor with a new `FastRCNNPredictor(num_classes)`.
+- Supports freezing the entire backbone and selectively unfreezing the last
+  N ResNet stages via `freeze_backbone`.
+"""
+
 
 def _strip_detection_head(state: dict) -> dict:
     """Remove roi_heads predictor weights from a checkpoint so we can load it

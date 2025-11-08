@@ -1,7 +1,19 @@
-#!/usr/bin/env python3
+"""
+COCO-style object detection dataset and utilities.
+
+- `_anns_to_voc`: converts COCO annotations (x, y, w, h) into VOC-style
+  xyxy boxes, labels, areas, and iscrowd arrays.
+- `CocoDetDataset`: wraps a COCO detection JSON with robust image-path
+  resolution (absolute paths, roots_map.json, or images_root fallback),
+  returning torchvision-compatible (image, target) pairs and supporting
+  optional Albumentations/torchvision transforms.
+- `collate_fn`: batches a list of (image, target) pairs into
+  (list[images], list[targets]) for use with DataLoader.
+"""
+
 import json
 import os
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 import torch
