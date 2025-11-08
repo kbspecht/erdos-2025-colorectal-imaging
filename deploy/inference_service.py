@@ -9,9 +9,26 @@ import torch
 from PIL import Image, ImageDraw, ImageFont
 from ultralytics import YOLO
 
-from faster_rcnn.models.faster_rcnn_model import build_fasterrcnn
+from src.faster_rcnn.models.faster_rcnn_model import build_fasterrcnn
 
-# Only needed if you actually use YOLO
+"""
+Unified inference and visualization service for Faster R-CNN and YOLO models.
+
+- Provides model loaders:
+    • `_load_fasterrcnn` → loads a Faster R-CNN checkpoint (.pth) from runs/frcnn_polyp
+    • `_load_yolo`       → loads a YOLO checkpoint (.pt) via Ultralytics from runs/yolo
+    • `load_model`       → unified API for selecting model family ("fasterrcnn" or "yolo")
+
+- Provides inference adapters:
+    • `_run_inference_fasterrcnn` / `_run_inference_yolo` → run inference on a PIL image
+      and return a normalized list of predictions with keys: "id", "box" (xyxy), "score".
+    • `run_inference` → family-agnostic inference entry point.
+
+- Visualization + GT helpers:
+    • `draw_boxes` → overlays predicted boxes (ID + score) on an image.
+    • `load_ground_truth` → loads COCO-style GT boxes for a given image.
+    • `draw_boxes_with_gt` → overlays predictions (red) and GT boxes (green) for comparison.
+"""
 
 
 # Type for model family
@@ -24,8 +41,8 @@ REPO_ROOT = Path(__file__).resolve().parents[2]  # e.g. /app/src/... -> /app
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Where we expect checkpoints to live
-FASTER_DIR = REPO_ROOT / "runs" / "frcnn_polyp"
-YOLO_DIR = REPO_ROOT / "runs" / "yolo"
+FASTER_DIR = REPO_ROOT / "models" / "faster_rcnn"
+YOLO_DIR = REPO_ROOT / "models" / "yolo"
 
 
 # MODEL LOADING
@@ -34,21 +51,32 @@ YOLO_DIR = REPO_ROOT / "runs" / "yolo"
 def _load_fasterrcnn(ckpt_path: str | Path | None):
     """
     Load your Faster R-CNN model from a .pth checkpoint.
+    Works with PyTorch 2.6+ by explicitly setting weights_only=False.
     """
     if ckpt_path is None:
         ckpt_path = FASTER_DIR / "best.pth"
 
     ckpt_path = Path(ckpt_path)
 
-    model = build_fasterrcnn(num_classes=2)  # adjust if your builder differs
-    state = torch.load(ckpt_path, map_location=DEVICE)
+    model = build_fasterrcnn(num_classes=2)  # adjust if needed
+
+    # IMPORTANT: PyTorch 2.6 changed default weights_only=True.
+    # Our checkpoints were saved as full pickles, so we must set weights_only=False.
+    try:
+        print(f"[debug] loading FRCNN ckpt with weights_only=False: {ckpt_path}")
+        state = torch.load(ckpt_path, map_location=DEVICE, weights_only=False)
+    except TypeError:
+        # Older torch versions don't have weights_only kwarg
+        print(f"[debug] loading FRCNN ckpt (no weights_only kwarg): {ckpt_path}")
+        state = torch.load(ckpt_path, map_location=DEVICE)
 
     # adjust to how you saved
-    state_dict = (
-        state["model"] if isinstance(state, dict) and "model" in state else state
-    )
-    model.load_state_dict(state_dict)
+    if isinstance(state, dict) and "model" in state:
+        state_dict = state["model"]
+    else:
+        state_dict = state
 
+    model.load_state_dict(state_dict)
     model.to(DEVICE)
     model.eval()
     return model
