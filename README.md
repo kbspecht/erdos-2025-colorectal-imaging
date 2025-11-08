@@ -73,3 +73,7 @@ This is a dataset consisting of 1000 images, annotated and verified by endoscopi
 | YOLO 11m-det  | 0.90  | 0.83  | 0.89  | 0.64  |
 | YOLO 11s-seg Bounding Box | 0.94 | 0.84  | 0.91  | 0.71  |
 | YOLO 11s-seg Mask  | 0.93  | 0.83  | 0.91  | 0.69  |
+
+## How-To Run:
+- YOLO models
+- [Faster R-CNN] (https://github.com/kbspecht/erdos-2025-colorectal-imaging/blob/main/notebooks/README.md)
