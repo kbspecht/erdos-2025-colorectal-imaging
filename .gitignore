@@ -2,4 +2,4 @@
 !src/faster_rcnn/data/**/
 *.pth
 src/faster_rcnn/data/center_stratified/
-.DS_Store
+**/.DS_Store
