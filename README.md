@@ -24,7 +24,7 @@ All feedback is automatically saved to a structured **JSON file** for further an
 ## 📁 File Organization
 
 This repository is divided into six folders:
-
+```bash
 erdos-2025-colorectal-imaging/
 ├── deploy/                                           # implementation of web deployment
 ├── models/                                          # collection of network weights for trained models
@@ -32,12 +32,13 @@ erdos-2025-colorectal-imaging/
 │   ├── frcnn_imgsz832f0.pth             # The weights for our best fast-rcnn model
 │   └── ...
 ├── ⭐ notebooks/                            # collection of Jupyter notebooks
-│   ├── [EDA.ipynb](notebooks/EDA.ipynb)                                    # check this file for an overview of our dataset
-│   ├── yolo_segmentation.ipynb    # train the best yolo model with segmentaion masks
+│   ├── EDA.ipynb                             # check this file for an overview of our dataset
+│   ├── yolo_segmentation.ipynb               # train the best yolo model with segmentaion masks
 │   └── ...
 ├── src/                      # model implementations
 ├── env.txt                # a minimum python environment for runnning all the scripts.
 └── README.md
+```
 
 ## Datasets
 
