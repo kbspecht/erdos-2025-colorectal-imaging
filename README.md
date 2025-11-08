@@ -8,20 +8,21 @@ We explored two models including Faster-RCNN and YOLO (v8,v11). A detailed model
 
 ⚠️ Notebooks may contain medical images
 
-## 🏃 Team Members
+## Team Members
 
 [Betul Senay Aras](https://www.linkedin.com/in/betul-senay-aras-84318b70/), [Rebekah Eichberg](https://www.linkedin.com/in/rebekah-eichberg/), [Ruibo Zhang](https://www.linkedin.com/in/ruibo-zhang-b901161a1/), [Arthur Diep-Nguyen](https://www.linkedin.com/in/arthur-diep-nguyen/), [Kevin Specht](https://www.linkedin.com/in/kevin-specht-83aa4aab/)
 
-## 🚀 Deployment
+## Deployment
 
 Our models are deployed to a **web interface** using **Docker** and **Google Cloud Platform (GCP)**. The web app enables **doctors and medical staff** to upload patient results and perform **real-time inference** on medical images. Medical professionals can provide feedback regarding the model’s **accuracy and observations**.
 
 All feedback is automatically saved to a structured **JSON file** for further analysis and model improvement.
 
-🌐 **Live App:**
-👉 [Access the Application](https://polyp-app-50611727111.europe-west1.run.app/)
+**Live App:**
+[Access the Application](https://polyp-app-50611727111.europe-west1.run.app/)
+Please note that if you are using Safari, you may need to open a private window due to security restrictions and caches.
 
-## 📁 File Organization
+## File Organization
 
 This repository is divided into six folders:
 ```bash
