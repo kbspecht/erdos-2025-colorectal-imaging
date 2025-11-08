@@ -27,18 +27,25 @@ Please note that if you are using Safari, you may need to open a private window 
 This repository is divided into six folders:
 ```bash
 erdos-2025-colorectal-imaging/
-├── deploy/                                           # implementation of web deployment
-├── models/                                          # collection of network weights for trained models
-│   ├── frcnn_imgsz640f2.pth
-│   ├── frcnn_imgsz832f0.pth             # The weights for our best fast-rcnn model
+├── configs/
+├── demo_images/                       # Images to be used in deployment demo
+├── deploy/                            # implementation of web deployment
+├── feedback/                          # Storage of the JSON file from web app
+├── models/                            # Our pretrained models
+│   ├── yolo                           # The weights for our best yolo models
+│   ├── faster_rcnn                    # The weights for our best fast-rcnn model
+├── notebooks/                         # collection of Jupyter notebooks
+│   ├── EDA.ipynb                      # check this file for an overview of ourdataset
+│   ├── yolo_segmentation.ipynb        # train the best yolo model with segmentaion masks
+│   ├── run_faster_rcnn.ipynb          # run and evaluate the faster_rcnn model 
 │   └── ...
-├── ⭐ notebooks/                            # collection of Jupyter notebooks
-│   ├── EDA.ipynb                             # check this file for an overview of our dataset
-│   ├── yolo_segmentation.ipynb               # train the best yolo model with segmentaion masks
-│   └── ...
-├── src/                      # model implementations
-├── env.txt                # a minimum python environment for runnning all the scripts.
-└── README.md
+├── runs/                              # Delete?
+├── src/                               # model implementations
+├── env.txt                            # a minimum python environment for runnning all the scripts
+├── app.py                             # Script for Streamlit app
+├── Dockerfile                            
+├── README.md
+└── requirements.txt                   # Necessary requirements for Dockerfile
 ```
 
 ## Datasets
