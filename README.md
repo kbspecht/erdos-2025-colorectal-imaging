@@ -76,4 +76,4 @@ This is a dataset consisting of 1000 images, annotated and verified by endoscopi
 
 ## How-To Run:
 - YOLO models
-- [Faster R-CNN] (https://github.com/kbspecht/erdos-2025-colorectal-imaging/blob/main/notebooks/README.md)
+- [Faster R-CNN](https://github.com/kbspecht/erdos-2025-colorectal-imaging/blob/main/notebooks/README.md)
