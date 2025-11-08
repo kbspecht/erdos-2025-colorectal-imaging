@@ -8,36 +8,44 @@ We explored two models including Faster-RCNN and YOLO (v8,v11). A detailed model
 
 ⚠️ Notebooks may contain medical images
 
-## 🏃 Team Members
+## Team Members
 
 [Betul Senay Aras](https://www.linkedin.com/in/betul-senay-aras-84318b70/), [Rebekah Eichberg](https://www.linkedin.com/in/rebekah-eichberg/), [Ruibo Zhang](https://www.linkedin.com/in/ruibo-zhang-b901161a1/), [Arthur Diep-Nguyen](https://www.linkedin.com/in/arthur-diep-nguyen/), [Kevin Specht](https://www.linkedin.com/in/kevin-specht-83aa4aab/)
 
-## 🚀 Deployment
+## Deployment
 
 Our models are deployed to a **web interface** using **Docker** and **Google Cloud Platform (GCP)**. The web app enables **doctors and medical staff** to upload patient results and perform **real-time inference** on medical images. Medical professionals can provide feedback regarding the model’s **accuracy and observations**.
 
 All feedback is automatically saved to a structured **JSON file** for further analysis and model improvement.
 
-🌐 **Live App:**
-👉 [Access the Application](https://polyp-app-50611727111.europe-west1.run.app/)
+**Live App:**
+[Access the Application](https://polyp-app-50611727111.europe-west1.run.app/)
+Please note that if you are using Safari, you may need to open a private window due to security restrictions and caches.
 
-## 📁 File Organization
+## File Organization
 
 This repository is divided into six folders:
 ```bash
 erdos-2025-colorectal-imaging/
-├── deploy/                                           # implementation of web deployment
-├── models/                                          # collection of network weights for trained models
-│   ├── frcnn_imgsz640f2.pth
-│   ├── frcnn_imgsz832f0.pth             # The weights for our best fast-rcnn model
+├── configs/
+├── demo_images/                       # Images to be used in deployment demo
+├── deploy/                            # implementation of web deployment
+├── feedback/                          # Storage of the JSON file from web app
+├── models/                            # Our pretrained models
+│   ├── yolo                           # The weights for our best yolo models
+│   ├── faster_rcnn                    # The weights for our best fast-rcnn model
+├── notebooks/                         # collection of Jupyter notebooks
+│   ├── EDA.ipynb                      # check this file for an overview of ourdataset
+│   ├── yolo_segmentation.ipynb        # train the best yolo model with segmentaion masks
+│   ├── run_faster_rcnn.ipynb          # run and evaluate the faster_rcnn model 
 │   └── ...
-├── ⭐ notebooks/                            # collection of Jupyter notebooks
-│   ├── EDA.ipynb                             # check this file for an overview of our dataset
-│   ├── yolo_segmentation.ipynb               # train the best yolo model with segmentaion masks
-│   └── ...
-├── src/                      # model implementations
-├── env.txt                # a minimum python environment for runnning all the scripts.
-└── README.md
+├── runs/                              # Delete?
+├── src/                               # model implementations
+├── env.txt                            # a minimum python environment for runnning all the scripts
+├── app.py                             # Script for Streamlit app
+├── Dockerfile                            
+├── README.md
+└── requirements.txt                   # Necessary requirements for Dockerfile
 ```
 
 ## Datasets
@@ -64,3 +72,15 @@ This is a dataset consisting of 1000 images, annotated and verified by endoscopi
 - Precision measuring proportion of true positives (predictions where IoU exceeds given threshold) among all predicted positives
 - Recall measuring proportion of true positives among all actual positives
 - Mean Average Precision (mAP) measuring mean of average precisions (area under precision-recall curve) across multiple IoU thresholds from 0.5 to 0.95 in increments of 0.05
+
+## Results on Single Images 
+| Model  | Precision | Recall  | mAP@50 | mAP@50:95 |
+| ------------- | ------------- |------------- | ------------- |------------- |
+| YOLO 8s (Baseline)  | 0.88  | 0.78  | 0.86  | 0.65  |
+| YOLO 11m-det  | 0.90  | 0.83  | 0.89  | 0.64  |
+| YOLO 11s-seg Bounding Box | 0.94 | 0.84  | 0.91  | 0.71  |
+| YOLO 11s-seg Mask  | 0.93  | 0.83  | 0.91  | 0.69  |
+
+## How-To Run:
+- YOLO models
+- [Faster R-CNN](https://github.com/kbspecht/erdos-2025-colorectal-imaging/blob/main/notebooks/README.md)
