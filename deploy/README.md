@@ -1,4 +1,4 @@
-# 🩺 Colorectal Polyp Detection App
+# Colorectal Polyp Detection App
 
 This repository contains a Streamlit application for **colorectal polyp detection**, packaged for local use with Docker and deployment on **Google Cloud Run**.
 
