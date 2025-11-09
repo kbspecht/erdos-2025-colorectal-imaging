@@ -128,4 +128,4 @@ This is a dataset consisting of 1000 single images, annotated and verified by en
 
 ## How-To Run:
 - YOLO models
-- [Faster R-CNN](https://github.com/kbspecht/erdos-2025-colorectal-imaging/blob/main/notebooks/README.md)
+- [Faster R-CNN](https://github.com/kbspecht/erdos-2025-colorectal-imaging/blob/main/src/faster_rcnn/scripts/README.md)
