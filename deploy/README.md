@@ -38,8 +38,7 @@ pip install -r requirements.txt
 streamlit run app.py --server.port=8080 --server.address=0.0.0.0
 ```
 
-Then open your browser to:  
-👉 http://localhost:8080
+Then open your browser to:  http://localhost:8080
 
 ---
 
@@ -122,7 +121,7 @@ Open that URL in your browser to access the deployed app.
 
 ---
 
-### ✅ Summary
+### Summary
 
 | Step | Command | Description |
 |------|----------|-------------|
