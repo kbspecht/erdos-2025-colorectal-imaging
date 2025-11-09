@@ -1,5 +1,3 @@
-How-To Run Faster-RCNN:
-
 ## Description of Each Notebook
 
 | Notebook | Purpose |

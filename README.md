@@ -19,7 +19,7 @@ Our models are deployed to a **web interface** using **Docker** and **Google Clo
 All feedback is automatically saved to a structured **JSON file** for further analysis and model improvement.
 
 **Live App:**
-[Access the Application](https://polyp-app-50611727111.europe-west1.run.app/)
+[Access the Application](https://polyp-app-50611727111.europe-west1.run.app)
 Please note that if you are using Safari, you may need to open a private window due to security restrictions and caches.
 
 ---
