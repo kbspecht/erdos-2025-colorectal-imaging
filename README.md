@@ -72,12 +72,20 @@ This is a dataset consisting of 1000 images, annotated and verified by endoscopi
 - Precision measuring proportion of true positives (predictions where IoU exceeds given threshold) among all predicted positives
 - Recall measuring proportion of true positives among all actual positives
 - Mean Average Precision (mAP) measuring mean of average precisions (area under precision-recall curve) across multiple IoU thresholds from 0.5 to 0.95 in increments of 0.05
+- 
+## Results on Validation Set 
+| Model  | Precision | Recall  | mAP@50 | mAP@50:95 |
+| ------------- | ------------- |------------- | ------------- |------------- |
+| YOLO 8s (Baseline)  | 0.83  | 0.84  | 0.82  | 0.64  |
+| YOLO 11m-det  | 0.92  | 0.87  | 0.94  | 0.74  |
+| YOLO 11s-seg Bounding Box | 0.92 | 0.89  | 0.94  | 0.77  |
+| YOLO 11s-seg Mask  | 0.92  | 0.89  | 0.94  | 0.75  |
 
-## Results on Single Images 
+## Results on Test Set Single Images 
 | Model  | Precision | Recall  | mAP@50 | mAP@50:95 |
 | ------------- | ------------- |------------- | ------------- |------------- |
 | YOLO 8s (Baseline)  | 0.88  | 0.78  | 0.86  | 0.65  |
-| YOLO 11m-det  | 0.90  | 0.83  | 0.89  | 0.64  |
+| YOLO 11m-det  | 0.94  | 0.84  | 0.92  | 0.71  |
 | YOLO 11s-seg Bounding Box | 0.94 | 0.84  | 0.91  | 0.71  |
 | YOLO 11s-seg Mask  | 0.93  | 0.83  | 0.91  | 0.69  |
 
