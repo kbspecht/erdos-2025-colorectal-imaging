@@ -10,3 +10,4 @@
 | **6. yolo_segmentation.ipynb** | Generates static augmentations for single training images, creates YOLO segmentation labels for multiple data folders, builds the final YOLO training split, and trains YOLO11s-Seg using built-in augmentations and multi-scale training. |
 | **7. yolo_evaluate_models_test_set.ipynb** | Evaluates trained models (detection or segmentation) on test sets, generating Markdown summaries and performance plots automatically. |
 | **8. false_analysis_yolo_models.ipynb** |  Analyzes false positives and false negatives from trained models to identify common error patterns and gain further insights for model improvement.|
+| **8. run_faster_rcnn.ipynb** |  Allows user to run faster r-cnn from a notebook.|
