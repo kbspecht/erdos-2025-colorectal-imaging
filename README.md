@@ -22,6 +22,43 @@ All feedback is automatically saved to a structured **JSON file** for further an
 [Access the Application](https://polyp-app-50611727111.europe-west1.run.app/)
 Please note that if you are using Safari, you may need to open a private window due to security restrictions and caches.
 
+---
+
+## Using the Web App
+
+Once the app is running locally (`http://localhost:8080`) or deployed (Cloud Run URL), you’ll see an interface that allows you to:
+
+1. **Upload Images or Folders**
+   - Upload a single frame, or an entire patient folder containing multiple frames.
+   - The app automatically detects if an upload contains a sequence.
+   - User can also select demo images so they don't need to upload their own images.
+
+2. **Run Inference**
+   - After selecting a model on the left, the results will show.
+   - The results are displayed side-by-side:
+     - Left: Original image
+     - Right: Predicted bounding boxes (polyps highlighted)
+   - Feel free to adjust the IoU threshold for desired predictions.
+
+3. **Provide Feedback (Optional)**
+   - Experts can mark predictions as correct or incorrect.
+   - Feedback is stored in `feedback/feedback.jsonl` for future retraining.
+
+4. **Switch Between Models**
+   - Use the sidebar dropdown to select between model types (e.g., Faster R-CNN and YOLOv8).
+
+---
+
+### Interface Overview
+
+| Section | Description |
+|----------|--------------|
+| **Sidebar** | Model selection, checkpoint path, IoU threshold, definitions |
+| **Main Panel** | Upload interface and visual results |
+| **Results Viewer** | Displays predicted bounding boxes and provide feedback |
+
+---
+
 ## File Organization
 
 This repository is divided into six folders:
