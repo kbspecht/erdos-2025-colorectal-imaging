@@ -7,6 +7,12 @@ It replaces the previous Jupyter notebook workflow and is designed for **local r
 
 ---
 
+## A Small Note:
+
+Depending on user preference, this pipeline can be run from CLI or from [this notebook](https://github.com/kbspecht/erdos-2025-colorectal-imaging/edit/main/src/faster_rcnn/scripts/README.md#:~:text=run_faster_rcnn.ipynb).
+
+---
+
 ## Directory Structure
 
 ```
