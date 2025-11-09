@@ -311,12 +311,7 @@ import pandas as pd
 import streamlit as st
 from PIL import Image
 
-from src.faster_rcnn.deploy.inference_service import (
-    ModelKind,
-    draw_boxes,
-    load_model,
-    run_inference,
-)
+from deploy.inference_service import ModelKind, draw_boxes, load_model, run_inference
 
 # -------------------------------------------------------------------
 # PATHS / CONSTANTS

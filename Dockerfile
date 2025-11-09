@@ -31,5 +31,6 @@ ENV STREAMLIT_SERVER_HEADLESS=true
 ENV PYTHONUNBUFFERED=1
 
 # start streamlit in cloud run port
-CMD ["bash", "-c", "streamlit run app.py --server.port=$PORT --server.address=0.0.0.0"]
+CMD ["sh", "-c", "streamlit run app.py --server.port=${PORT:-8080} --server.address=0.0.0.0"]
+
 

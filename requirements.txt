@@ -6,3 +6,8 @@ torchvision
 numpy
 regex
 ultralytics>=8.2.0
+
+
+
+
+
