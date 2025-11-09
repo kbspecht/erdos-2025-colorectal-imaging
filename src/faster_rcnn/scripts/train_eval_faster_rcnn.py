@@ -117,17 +117,29 @@ def run_training(
     roots_map: Path,
     images_root: Path,
     epochs: int = 1,
+    batch_size: int = 8,
+    num_workers: int = 0,
+    img_size: int = 640,
+    train_augs: str = "medium",
+    num_classes: int = 2,
+    freeze_backbone: int = 2,
+    opt: str = "sgd",
+    lr_backbone: float = 1e-4,
+    lr_heads: float = 5e-3,
+    weight_decay: float = 1e-4,
+    lr_scheduler: str = "none",
+    device: str = "cpu",
 ) -> Path:
     """
     Call your existing train_faster_rcnn CLI.
 
     Assumes the training script writes checkpoints under:
-        repo_root/runs/faster_rcnn/
+        repo_root/runs/frcnn_polyp/
 
     Returns:
-        Path to the *copied* checkpoint under models/faster_rcnn (unique name).
+        Path to the checkpoint we want to evaluate (in models/faster_rcnn).
     """
-    runs_dir = REPO_ROOT / "runs" / "faster_rcnn"
+    runs_dir = REPO_ROOT / "runs" / "frcnn_polyp"
     runs_dir.mkdir(parents=True, exist_ok=True)
 
     cmd = [
@@ -145,38 +157,36 @@ def run_training(
         "--epochs",
         str(epochs),
         "--batch-size",
-        "8",
+        str(batch_size),
         "--num-workers",
-        "0",
+        str(num_workers),
         "--img-size",
-        "640",
+        str(img_size),
         "--train-augs",
-        "medium",
+        train_augs,
         "--num-classes",
-        "2",
+        str(num_classes),
         "--freeze-backbone",
-        "2",
+        str(freeze_backbone),
         "--opt",
-        "sgd",
+        opt,
         "--lr-backbone",
-        "1e-4",
+        str(lr_backbone),
         "--lr-heads",
-        "5e-3",
+        str(lr_heads),
         "--weight-decay",
-        "1e-4",
+        str(weight_decay),
         "--lr-scheduler",
-        "none",
+        lr_scheduler,
         "--device",
-        "cpu",
+        device,
     ]
     print(f"[info] Running training: {' '.join(cmd)}")
     subprocess.run(cmd, check=True)
 
-    # Pick a checkpoint from runs/frcnn_polyp
     raw_ckpt = pick_checkpoint(runs_dir, epochs=epochs)
     print(f"[info] Selected raw checkpoint: {raw_ckpt}")
 
-    # Copy into models/faster_rcnn with a unique name (never overwrites existing files)
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
     dest_ckpt = make_unique_dest(MODELS_DIR, raw_ckpt.name)
     shutil.copy2(raw_ckpt, dest_ckpt)
@@ -268,6 +278,34 @@ def main() -> None:
         action="store_true",
         help="Skip data prep if artifacts already exist.",
     )
+
+    # --- Optional training hyperparameters ---
+    p.add_argument("--batch-size", type=int, default=8, help="Training batch size")
+    p.add_argument("--num-workers", type=int, default=0, help="Data loader workers")
+    p.add_argument("--img-size", type=int, default=640, help="Image resize dimension")
+    p.add_argument(
+        "--train-augs", type=str, default="medium", help="Augmentation preset"
+    )
+    p.add_argument(
+        "--num-classes", type=int, default=2, help="Number of detection classes"
+    )
+    p.add_argument(
+        "--freeze-backbone",
+        type=int,
+        default=2,
+        help="Number of backbone layers to freeze",
+    )
+    p.add_argument("--opt", type=str, default="sgd", help="Optimizer type")
+    p.add_argument(
+        "--lr-backbone", type=float, default=1e-4, help="Backbone learning rate"
+    )
+    p.add_argument(
+        "--lr-heads", type=float, default=5e-3, help="Detection head learning rate"
+    )
+    p.add_argument("--weight-decay", type=float, default=1e-4, help="Weight decay")
+    p.add_argument("--lr-scheduler", type=str, default="none", help="LR scheduler type")
+    p.add_argument("--device", type=str, default="cpu", help="Device to train on")
+
     args = p.parse_args()
 
     train_json = args.artifacts_dir / "train.json"
@@ -285,6 +323,18 @@ def main() -> None:
         roots_map=roots_map,
         images_root=args.images_root,
         epochs=args.epochs,
+        batch_size=args.batch_size,
+        num_workers=args.num_workers,
+        img_size=args.img_size,
+        train_augs=args.train_augs,
+        num_classes=args.num_classes,
+        freeze_backbone=args.freeze_backbone,
+        opt=args.opt,
+        lr_backbone=args.lr_backbone,
+        lr_heads=args.lr_heads,
+        weight_decay=args.weight_decay,
+        lr_scheduler=args.lr_scheduler,
+        device=args.device,
     )
 
     run_eval(
