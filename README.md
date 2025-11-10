@@ -122,7 +122,7 @@ This is a dataset consisting of 1000 single images, annotated and verified by en
 | Model  | Precision | Recall  | mAP@50 | mAP@50:95 |
 | ------------- | ------------- |------------- | ------------- |------------- |
 | YOLO 8s (Baseline)  | 0.88  | 0.78  | 0.86  | 0.65  |
-| YOLO 11m-det  | 0.94  | 0.84  | 0.92  | 0.71  |
+| YOLO 11m-det  | 0.95  | 0.79  | 0.90  | 0.68  |
 | YOLO 11s-seg Bounding Box | 0.94 | 0.84  | 0.92  | 0.71  |
 | YOLO 11s-seg Mask  | 0.93  | 0.83  | 0.91  | 0.70  |
 
